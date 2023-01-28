@@ -16,14 +16,14 @@ public class ImageLoaderScript : MonoBehaviour
         int pointer = 0;
         // Read color of each pixel of the loaded picture
         for(int y = 0; y < 15; y++) {
+            // Go to the next row
+            pointer = y * 150000;
             for(int x = 0; x < 15; x++) {
                 // Read pixel every 100 pixels
-                Debug.Log(pixels[x * 100 + pointer]);
+                Debug.Log(x * 100 + pointer);
                 // Store each data into a dictionary
                 pixelData[new Vector2(x, y)] = pixels[x * 100 + pointer];
             }
-            // Go to the next row
-            pointer = y * 150000;
         }
     }
 
