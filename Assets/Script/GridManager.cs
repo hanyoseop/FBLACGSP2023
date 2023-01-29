@@ -10,30 +10,56 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Tile tilePrefab;
     [SerializeField] private float scaleValue;
 
+    private Dictionary<Vector2, Tile> pixelTiles;
+    private Dictionary<Vector2, Tile> letterTiles;
+
     void Start() {
         LoadPictureInGrid();
+        GenerateGridWithLetter();
     }
 
 
     void GenerateGridWithLetter() {
+        letterTiles = new Dictionary<Vector2, Tile>();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 var spawnedTile = Instantiate(tilePrefab, new Vector3(x * scaleValue - 2.38f, y * scaleValue - 4.048f), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
-                
+                spawnedTile.transform.localScale = new Vector3(0.28933f, 0.28933f, 1);
                 spawnedTile.Init(letterSpriteArray[Random.Range(0, 27)]);
+
+                // Save tiles into a dictionary
+                letterTiles[new Vector2(x, y)] = spawnedTile;
             }
         }
     }
     
     void LoadPictureInGrid() {
+        pixelTiles = new Dictionary<Vector2, Tile>();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 var spawnedTile = Instantiate(tilePrefab, new Vector3(x * scaleValue - 2.38f, y * scaleValue - 4.048f), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
-
+                // Set color of a tile based on the image data
                 spawnedTile.Init(imageloader.GetPixelData(new Vector2(x, y)));
+                spawnedTile.Hide();
+
+                // Save tiles into a dictionary
+                pixelTiles[new Vector2(x, y)] = spawnedTile;
             }
         }
+    }
+
+    public Tile GetTileAtPosition(int type, Vector2 position) {
+        if (type == 0) {
+            if (pixelTiles.TryGetValue(position, out var tile)) {
+                return tile;
+            }    
+        } else if (type == 1) {
+            if (letterTiles.TryGetValue(position, out var tile)) {
+                return tile;
+            }    
+        }
+        return null;
     }
 }
