@@ -13,13 +13,13 @@ public class WordManagerScript : MonoBehaviour
 
     void ProcessWordlist() {
         string text = wordList.text;
-        words = text.Split('\n');
+        words = text.Split("\r\n");
     }
 
     public string LookForWords(int length) {
         List<string> correctLengthWord = new List<string>();
         foreach(string word in words) {
-            if (word.Length == length + 1) {
+            if (word.Length == length) {
                 correctLengthWord.Add(word);
             }
         }

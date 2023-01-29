@@ -18,7 +18,6 @@ public class GridManager : MonoBehaviour
         GenerateGridWithLetter();
     }
 
-
     void GenerateGridWithLetter() {
         letterTiles = new Dictionary<Vector2, Tile>();
         for (int x = 0; x < width; x++) {
@@ -27,7 +26,7 @@ public class GridManager : MonoBehaviour
                 spawnedTile.name = $"Tile {x} {y}";
                 spawnedTile.transform.localScale = new Vector3(0.28933f, 0.28933f, 1);
                 spawnedTile.Init(letterSpriteArray[Random.Range(0, 26)]);
-                spawnedTile.Hide();
+                // spawnedTile.Hide();
                 // Save tiles into a dictionary
                 letterTiles[new Vector2(x, y)] = spawnedTile;
             }
@@ -46,6 +45,15 @@ public class GridManager : MonoBehaviour
 
                 // Save tiles into a dictionary
                 pixelTiles[new Vector2(x, y)] = spawnedTile;
+            }
+        }
+    }
+    
+    public void Reveal() {
+        for (int y = 0; y < 15; y++) {
+            for (int x = 0; x < 15; x++) {
+                pixelTiles[new Vector2(x, y)].Expose();
+                letterTiles[new Vector2(x, y)].Hide();
             }
         }
     }

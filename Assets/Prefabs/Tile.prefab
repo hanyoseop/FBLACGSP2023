@@ -99,8 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a30295fbdb2bf438a74189da9e8bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selected: 0
   renderer: {fileID: 1770416077905348478}
-  tile: {fileID: 1770416077905348475}
+  collider: {fileID: 533756164978184927}
+  tile: {fileID: 1770416077905348477}
+  tileObject: {fileID: 1770416077905348475}
   highlight: {fileID: 7799603863422348971}
 --- !u!61 &533756164978184927
 BoxCollider2D:

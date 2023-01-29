@@ -11,6 +11,7 @@ public class GameLogicManager : MonoBehaviour
     // (x-coord, y-coord, direction)
     // 1 - North, 2 - East, 3 - South, 4 - West
     private Dictionary<Vector3, int> wordMappingData;
+    private List<string> wordBank = new List<string>();
 
     void Start() {
         ArrangeWordSetup();
@@ -21,9 +22,10 @@ public class GameLogicManager : MonoBehaviour
         foreach(KeyValuePair<Vector3, int> data in wordMappingData) {
             // Get necessary words
             string word = wordManager.LookForWords(data.Value);
+            Debug.Log(word);
             // Debug.Log(data.Key);
             // Debug.Log(data.Value);
-            Debug.Log(word);
+            wordBank.Add(word);
             for (int i = 0; i < data.Value; i++) {
                 if (data.Key.z == 1) {
                     Tile targetTile = gridManager.GetTileAtPosition(1, new Vector2(data.Key.x, data.Key.y + i));
@@ -142,6 +144,25 @@ public class GameLogicManager : MonoBehaviour
                         imageloader.RemoveMappingData(new Vector2(x, y));
                     } 
                 }
+            }
+        }
+    }
+
+    public void CheckAnswer(string selectedLetters, List<Tile> selectedTilesList) {
+        Debug.Log(wordBank.Contains(selectedLetters));
+        Debug.Log(selectedLetters);
+        Debug.Log(selectedLetters.Length);
+        if (wordBank.Contains(selectedLetters)) {
+            Debug.Log("It's here!");
+            wordBank.Remove(selectedLetters);
+            if (wordBank.Count == 0) {
+                gridManager.Reveal();
+            }
+            // Add Score or smth
+            foreach(Tile tile in selectedTilesList) {
+                tile.Hide();
+                Tile pixelTile = gridManager.GetTileAtPosition(0, tile.GetCoordinate());
+                pixelTile.Expose();
             }
         }
     }
