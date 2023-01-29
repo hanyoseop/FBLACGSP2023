@@ -19,6 +19,10 @@ public class Tile : MonoBehaviour
         highlight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.314f);
     }
 
+    public void ChangeLetter(Sprite letterSprite) {
+        renderer.sprite = letterSprite;
+    }
+
     public void Expose() {
         tile.SetActive(true);
     }

@@ -13,7 +13,7 @@ public class GridManager : MonoBehaviour
     private Dictionary<Vector2, Tile> pixelTiles;
     private Dictionary<Vector2, Tile> letterTiles;
 
-    void Start() {
+    void Awake() {
         LoadPictureInGrid();
         GenerateGridWithLetter();
     }
@@ -26,8 +26,8 @@ public class GridManager : MonoBehaviour
                 var spawnedTile = Instantiate(tilePrefab, new Vector3(x * scaleValue - 2.38f, y * scaleValue - 4.048f), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
                 spawnedTile.transform.localScale = new Vector3(0.28933f, 0.28933f, 1);
-                spawnedTile.Init(letterSpriteArray[Random.Range(0, 27)]);
-
+                spawnedTile.Init(letterSpriteArray[Random.Range(0, 26)]);
+                spawnedTile.Hide();
                 // Save tiles into a dictionary
                 letterTiles[new Vector2(x, y)] = spawnedTile;
             }
@@ -48,6 +48,12 @@ public class GridManager : MonoBehaviour
                 pixelTiles[new Vector2(x, y)] = spawnedTile;
             }
         }
+    }
+
+    // I don't know if this is a right way to do this but for now I do this. 
+    public void SetLetterToTile(Tile tile, char letter) {
+        tile.Expose();
+        tile.ChangeLetter(letterSpriteArray[(int)letter - 97]);
     }
 
     public Tile GetTileAtPosition(int type, Vector2 position) {

@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameLogicManager : MonoBehaviour
 {
     public ImageLoaderScript imageloader;
+    public GridManager gridManager;
+    public WordManagerScript wordManager;
     
     // (x-coord, y-coord, direction)
     // 1 - North, 2 - East, 3 - South, 4 - West
@@ -12,6 +14,33 @@ public class GameLogicManager : MonoBehaviour
 
     void Start() {
         ArrangeWordSetup();
+        PlaceWords();
+    }
+
+    void PlaceWords() {
+        foreach(KeyValuePair<Vector3, int> data in wordMappingData) {
+            // Get necessary words
+            string word = wordManager.LookForWords(data.Value);
+            // Debug.Log(data.Key);
+            // Debug.Log(data.Value);
+            Debug.Log(word);
+            for (int i = 0; i < data.Value; i++) {
+                if (data.Key.z == 1) {
+                    Tile targetTile = gridManager.GetTileAtPosition(1, new Vector2(data.Key.x, data.Key.y + i));
+                    gridManager.SetLetterToTile(targetTile, word[i]);
+                } else if (data.Key.z == 2) {
+                    Tile targetTile = gridManager.GetTileAtPosition(1, new Vector2(data.Key.x + i, data.Key.y));
+                    gridManager.SetLetterToTile(targetTile, word[i]);
+                } else if (data.Key.z == 3) {
+                    Tile targetTile = gridManager.GetTileAtPosition(1, new Vector2(data.Key.x, data.Key.y - i));
+                    gridManager.SetLetterToTile(targetTile, word[i]);
+                } else if (data.Key.z == 4) {
+                    Tile targetTile = gridManager.GetTileAtPosition(1, new Vector2(data.Key.x - i, data.Key.y));
+                    gridManager.SetLetterToTile(targetTile, word[i]);
+                }
+            }
+
+        }
     }
 
     void ArrangeWordSetup() {
@@ -38,7 +67,14 @@ public class GameLogicManager : MonoBehaviour
                                 imageloader.RestoreMappingData(restore);
                             }
                         } else {
-                           wordMappingData[new Vector3(x, y, 1)] = counter; 
+                            // MODIFY IT SO IT DEPENDS ON LEVEL
+                            int flipRandom = Random.Range(0, 2);
+                            // top to bottom
+                            if (flipRandom == 0) {
+                                wordMappingData[new Vector3(x, y + counter - 1, 3)] = counter;
+                            } else {
+                                wordMappingData[new Vector3(x, y, 1)] = counter; 
+                            }
                         }
                     }
                     if(imageloader.GetMappingData(new Vector2(x + 1, y))) {
@@ -56,7 +92,14 @@ public class GameLogicManager : MonoBehaviour
                                 imageloader.RestoreMappingData(restore);
                             }
                         } else {
-                           wordMappingData[new Vector3(x, y, 2)] = counter; 
+                            // MODIFY IT SO IT DEPENDS ON LEVEL
+                            int flipRandom = Random.Range(0, 2);
+                            // Horizontal
+                            if (flipRandom == 0) {
+                                wordMappingData[new Vector3(x + counter - 1, y, 4)] = counter;
+                            } else {
+                                wordMappingData[new Vector3(x, y, 2)] = counter; 
+                            }
                         }
                     } 
                     if(imageloader.GetMappingData(new Vector2(x, y - 1))) {
