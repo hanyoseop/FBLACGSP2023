@@ -5,7 +5,31 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Main Menu.unity
+    guid: c9f062b7bf1d9af4b9109c378f326678
+  - enabled: 1
+    path: Assets/Scenes/Level 1_Tokyo.unity
+    guid: 34677a2d6c652f1438cb7f687798c4a6
+  - enabled: 1
+    path: Assets/Scenes/Level 2_Suzhou.unity
+    guid: e939810445ab307408cb285f1ee3d445
+  - enabled: 1
+    path: Assets/Scenes/Level 3_Marrakesh.unity
+    guid: 6e995d04a7ee58d4aa2850f14a0605ca
+  - enabled: 1
+    path: Assets/Scenes/Level 4_Paris.unity
+    guid: 14b489c5eb679e64eaf24d65234f70f9
+  - enabled: 1
+    path: Assets/Scenes/Level 5_Los Angeles.unity
+    guid: d0a06b166c60c364ba86723e8f4940a1
+  - enabled: 1
+    path: Assets/Scenes/Level 6_ Rio De Janeiro.unity
+    guid: 0366f57dc1f94aa4b9df8012c8f319ce
+  - enabled: 1
+    path: Assets/Scenes/Ending.unity
+    guid: 5825835ee6f0bdc4a92d6f0e965d9297
   m_configObjects: {}

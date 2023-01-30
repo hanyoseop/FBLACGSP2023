@@ -7,6 +7,9 @@ public class GameLogicManager : MonoBehaviour
     public ImageLoaderScript imageloader;
     public GridManager gridManager;
     public WordManagerScript wordManager;
+    public GUIManager guiManager;
+    public GameManagerScript gameManager;
+    public ScoreScript scoreManager;
     
     // (x-coord, y-coord, direction)
     // 1 - North, 2 - East, 3 - South, 4 - West
@@ -16,6 +19,8 @@ public class GameLogicManager : MonoBehaviour
     void Start() {
         ArrangeWordSetup();
         PlaceWords();
+        guiManager.StartTimer();
+        guiManager.SetUpWordBank(wordBank);
     }
 
     void PlaceWords() {
@@ -69,13 +74,22 @@ public class GameLogicManager : MonoBehaviour
                                 imageloader.RestoreMappingData(restore);
                             }
                         } else {
-                            // MODIFY IT SO IT DEPENDS ON LEVEL
-                            int flipRandom = Random.Range(0, 2);
-                            // top to bottom
-                            if (flipRandom == 0) {
+                            int currentLevel = gameManager.GetCurrentLevel();
+                            if (currentLevel == 1 || currentLevel == 2) {
+                                // Level 1 and 2 have no flip
                                 wordMappingData[new Vector3(x, y + counter - 1, 3)] = counter;
-                            } else {
-                                wordMappingData[new Vector3(x, y, 1)] = counter; 
+                            } else if (currentLevel == 3 || currentLevel == 4) {
+                                // Level 3 and 4 have horizontal flip
+                                wordMappingData[new Vector3(x, y, 1)] = counter;
+                            } else if (currentLevel == 5 || currentLevel == 6) {
+                                // Level 5 and 6 have both flips
+                                int flipRandom = Random.Range(0, 2);
+                                // top to bottom
+                                if (flipRandom == 0) {
+                                    wordMappingData[new Vector3(x, y + counter - 1, 3)] = counter;
+                                } else {
+                                    wordMappingData[new Vector3(x, y, 1)] = counter; 
+                                }
                             }
                         }
                     }
@@ -94,50 +108,29 @@ public class GameLogicManager : MonoBehaviour
                                 imageloader.RestoreMappingData(restore);
                             }
                         } else {
-                            // MODIFY IT SO IT DEPENDS ON LEVEL
-                            int flipRandom = Random.Range(0, 2);
-                            // Horizontal
-                            if (flipRandom == 0) {
-                                wordMappingData[new Vector3(x + counter - 1, y, 4)] = counter;
-                            } else {
-                                wordMappingData[new Vector3(x, y, 2)] = counter; 
+                            int currentLevel = gameManager.GetCurrentLevel();
+                            if (currentLevel == 1 || currentLevel == 2) {
+                                // Level 1 and 2 have no flip
+                                wordMappingData[new Vector3(x, y, 2)] = counter;
+                            } else if (currentLevel == 3 || currentLevel == 4) {
+                                // Level 3 and 4 have horizontal flip
+                                int flipRandom = Random.Range(0, 2);
+                                // Horizontal
+                                if (flipRandom == 0) {
+                                    wordMappingData[new Vector3(x + counter - 1, y, 4)] = counter;
+                                } else {
+                                    wordMappingData[new Vector3(x, y, 2)] = counter; 
+                                }
+                            } else if (currentLevel == 5 || currentLevel == 6) {
+                                // Level 5 and 6 have both flips
+                                int flipRandom = Random.Range(0, 2);
+                                // Horizontal
+                                if (flipRandom == 0) {
+                                    wordMappingData[new Vector3(x + counter - 1, y, 4)] = counter;
+                                } else {
+                                    wordMappingData[new Vector3(x, y, 2)] = counter; 
+                                }
                             }
-                        }
-                    } 
-                    if(imageloader.GetMappingData(new Vector2(x, y - 1))) {
-                        // Check South
-                        hasSomethingAround = true;
-                        int counter = 0;
-                        Vector2[] backup = new Vector2[15]; 
-                        while (imageloader.GetMappingData(new Vector2(x, y - counter))) {
-                            imageloader.RemoveMappingData(new Vector2(x, y - counter));
-                            counter++;
-                        }
-                        // If it's too short restore backup
-                        if (counter < 3) {
-                            foreach (Vector2 restore in backup) {
-                                imageloader.RestoreMappingData(restore);
-                            }
-                        } else {
-                           wordMappingData[new Vector3(x, y, 3)] = counter; 
-                        }
-                    } 
-                    if(imageloader.GetMappingData(new Vector2(x - 1, y))) {
-                        // Check West
-                        hasSomethingAround = true;
-                        int counter = 0;
-                        Vector2[] backup = new Vector2[15]; 
-                        while (imageloader.GetMappingData(new Vector2(x - counter, y))) {
-                            imageloader.RemoveMappingData(new Vector2(x - counter, y));
-                            counter++;
-                        }
-                        // If it's too short restore backup
-                        if (counter < 3) {
-                            foreach (Vector2 restore in backup) {
-                                imageloader.RestoreMappingData(restore);
-                            }
-                        } else {
-                           wordMappingData[new Vector3(x, y, 4)] = counter; 
                         }
                     } 
                     if (!hasSomethingAround) {
@@ -149,16 +142,18 @@ public class GameLogicManager : MonoBehaviour
     }
 
     public void CheckAnswer(string selectedLetters, List<Tile> selectedTilesList) {
-        Debug.Log(wordBank.Contains(selectedLetters));
-        Debug.Log(selectedLetters);
-        Debug.Log(selectedLetters.Length);
         if (wordBank.Contains(selectedLetters)) {
-            Debug.Log("It's here!");
+            // To update wordbank
             wordBank.Remove(selectedLetters);
+            guiManager.SetUpWordBank(wordBank);
+
+            // When all words are found
             if (wordBank.Count == 0) {
                 gridManager.Reveal();
+                gameManager.EndGame();
             }
-            // Add Score or smth
+            // To add score
+            scoreManager.AddScore(guiManager.GetRemainingTime() * 0.1f * selectedTilesList.Count);
             foreach(Tile tile in selectedTilesList) {
                 tile.Hide();
                 Tile pixelTile = gridManager.GetTileAtPosition(0, tile.GetCoordinate());
