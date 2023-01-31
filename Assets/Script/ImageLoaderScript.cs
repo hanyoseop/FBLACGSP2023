@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class ImageLoaderScript : MonoBehaviour
 {
-    [SerializeField] private Texture2D sourceImage;
-    [SerializeField] private Texture2D mappingImage;
+    [SerializeField] private Texture2D[] sourceImages;
+    [SerializeField] private Texture2D[] mappingImages;
 
     private Dictionary<Vector2, Color> pixelData;
     private Dictionary<Vector2, bool> mappingData;
 
+    private int numberOfImages = 0;
+    private int currentIndex = 0;
+
     // Start is called before the first frame update
     void Awake()
     {
-        LoadImageData();
-        LoadMappingData();
+        numberOfImages = sourceImages.Length;
+
+        LoadImageData(currentIndex);
+        LoadMappingData(currentIndex);
     }
 
-    void LoadImageData() {
+    void LoadImageData(int imageIndex) {
         pixelData = new Dictionary<Vector2, Color>();
-        Color[] pixels = sourceImage.GetPixels(0, 0, 1500, 1500);
+        Color[] pixels = sourceImages[imageIndex].GetPixels(0, 0, 1500, 1500);
         int pointer = 0;
         // Read color of each pixel of the loaded picture
         for(int y = 0; y < 15; y++) {
@@ -33,9 +38,9 @@ public class ImageLoaderScript : MonoBehaviour
         }
     }
 
-    void LoadMappingData() {
+    void LoadMappingData(int imageIndex) {
         mappingData = new Dictionary<Vector2, bool>();
-        Color[] rawMappingData = mappingImage.GetPixels(0, 0, 15, 15);
+        Color[] rawMappingData = mappingImages[imageIndex].GetPixels(0, 0, 15, 15);
         int pointer = 0;
         for(int y = 0; y < 15; y++) {
             pointer = y * 15;
@@ -74,9 +79,13 @@ public class ImageLoaderScript : MonoBehaviour
         mappingData[position] = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public int GetNumberOfImage() {
+        return numberOfImages;
+    }
+
+    public void NextImage() {
+        currentIndex += 1;
+        LoadImageData(currentIndex);
+        LoadMappingData(currentIndex);
     }
 }

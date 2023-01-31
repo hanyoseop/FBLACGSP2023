@@ -27,7 +27,7 @@ public class LevelSelectButtonScript : MonoBehaviour
         descriptionText.text = descriptions[level];
 
         // Check if the level is unlocked
-        if (CheckIfCleared(level)) {
+        if (CheckIfCleared(level + 1)) {
             imageComponent.sprite = maps[level + 1];
         } else {
             imageComponent.sprite = maps[0];
@@ -35,10 +35,6 @@ public class LevelSelectButtonScript : MonoBehaviour
     }
 
     bool CheckIfCleared(int level) {
-        // If it's Tokyo
-        if (level == 0) {
-            return true;
-        }
         if (PlayerPrefs.GetInt(level.ToString() + "cleared", 0) == 1) {
             return true;
         } else {

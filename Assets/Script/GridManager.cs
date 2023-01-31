@@ -14,6 +14,10 @@ public class GridManager : MonoBehaviour
     private Dictionary<Vector2, Tile> letterTiles;
 
     void Awake() {
+        LoadCurrentImage();
+    }
+
+    public void LoadCurrentImage() {
         LoadPictureInGrid();
         GenerateGridWithLetter();
     }
@@ -54,6 +58,14 @@ public class GridManager : MonoBehaviour
             for (int x = 0; x < 15; x++) {
                 pixelTiles[new Vector2(x, y)].Expose();
                 letterTiles[new Vector2(x, y)].Hide();
+            }
+        }
+    }
+
+    public void HideAll() {
+        for (int y = 0; y < 15; y++) {
+            for (int x = 0; x < 15; x++) {
+                pixelTiles[new Vector2(x, y)].Hide();
             }
         }
     }

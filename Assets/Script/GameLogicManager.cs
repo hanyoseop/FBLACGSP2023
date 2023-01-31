@@ -16,7 +16,13 @@ public class GameLogicManager : MonoBehaviour
     private Dictionary<Vector3, int> wordMappingData;
     private List<string> wordBank = new List<string>();
 
+    private int stageIndex = 1;
+
     void Start() {
+        SetUp();
+    }
+
+    void SetUp() {
         ArrangeWordSetup();
         PlaceWords();
         guiManager.StartTimer();
@@ -149,8 +155,9 @@ public class GameLogicManager : MonoBehaviour
 
             // When all words are found
             if (wordBank.Count == 0) {
+                // Check if more stages are there
                 gridManager.Reveal();
-                gameManager.EndGame();
+                Invoke("EndOfStageManagement", 2f);
             }
             // To add score
             scoreManager.AddScore(guiManager.GetRemainingTime() * 0.1f * selectedTilesList.Count);
@@ -159,6 +166,20 @@ public class GameLogicManager : MonoBehaviour
                 Tile pixelTile = gridManager.GetTileAtPosition(0, tile.GetCoordinate());
                 pixelTile.Expose();
             }
+        }
+    }
+
+    void EndOfStageManagement() {
+        if (imageloader.GetNumberOfImage() > 1 && stageIndex < imageloader.GetNumberOfImage()) {
+            Debug.Log("hohhohoti's herer");
+            gridManager.HideAll();
+            imageloader.NextImage();
+            gridManager.LoadCurrentImage();
+            SetUp();
+            stageIndex += 1;
+        } else {
+            PlayerPrefs.SetInt(gameManager.GetCurrentLevel().ToString() + "cleared", 1);
+            gameManager.EndGame();
         }
     }
 

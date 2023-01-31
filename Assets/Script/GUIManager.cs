@@ -65,7 +65,7 @@ public class GUIManager : MonoBehaviour
     // To control time based on level
     int InitializeTime() {
         if (gameManager.GetCurrentLevel() == 1) {
-            return 10;
+            return 300;
         } else if(gameManager.GetCurrentLevel() == 2) {
             return 150;
         } else if(gameManager.GetCurrentLevel() == 3) {
@@ -96,7 +96,8 @@ public class GUIManager : MonoBehaviour
 
     public void LevelCleared() {
         isTimerOn = false;
-        Invoke("ShowContinueTab", 2f);
+        ShowContinueTab();
+        // Invoke("ShowContinueTab", 2f);
     }
 
     void ShowContinueTab() {
