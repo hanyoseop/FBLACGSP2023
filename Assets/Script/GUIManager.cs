@@ -24,8 +24,6 @@ public class GUIManager : MonoBehaviour
     // End tabs Var
     public GameObject continueTab;
     public GameObject retryTab;
-    public TMP_Text ContinueUsernameField;
-    public TMP_Text RetryUsernameField;
 
     void Start() {
         timeRemaining = InitializeTime();
@@ -67,13 +65,13 @@ public class GUIManager : MonoBehaviour
     // To control time based on level
     int InitializeTime() {
         if (gameManager.GetCurrentLevel() == 1) {
-            return 120;
+            return 10;
         } else if(gameManager.GetCurrentLevel() == 2) {
             return 150;
         } else if(gameManager.GetCurrentLevel() == 3) {
-            return 90;
-        } else if(gameManager.GetCurrentLevel() == 4) {
             return 120;
+        } else if(gameManager.GetCurrentLevel() == 4) {
+            return 150;
         } else if(gameManager.GetCurrentLevel() == 5) {
             return 120;
         } else if(gameManager.GetCurrentLevel() == 6) {
@@ -90,20 +88,6 @@ public class GUIManager : MonoBehaviour
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
         timeRemainingOutput = minutes * 60 + seconds;
         timer.text = string.Format("{0:00} {1:00}", minutes, seconds);
-    }
-
-    // For enter in the username field
-    public void GetAndSaveScore(string username) {
-        scoreManager.SaveScore(username);
-    }
-
-    // For the submit button
-    public void GetAndSaveScore() {
-        scoreManager.SaveScore(ContinueUsernameField.text);
-    }
-
-    public void GetAndSaveScoreTwo() {
-        scoreManager.SaveScore(RetryUsernameField.text);
     }
 
     public float GetRemainingTime() {

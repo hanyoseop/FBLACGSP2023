@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ImageLoaderScript : MonoBehaviour
 {
-    public Texture2D sourceImage;
-    public Texture2D mappingImage;
+    [SerializeField] private Texture2D sourceImage;
+    [SerializeField] private Texture2D mappingImage;
 
     private Dictionary<Vector2, Color> pixelData;
     private Dictionary<Vector2, bool> mappingData;

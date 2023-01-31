@@ -10,12 +10,8 @@ public class ScoreScript : MonoBehaviour
         totalScore += score;
     }
 
-    public void ResetScore() {
-        totalScore = 0;
-    }
-
     public void SaveScore(string username) {
-        if (totalScore > PlayerPrefs.GetFloat("firstplace")) {
+        if (totalScore >= PlayerPrefs.GetFloat("firstplace")) {
             // Move second to third
             PlayerPrefs.SetFloat("thirdplace", PlayerPrefs.GetFloat("secondplace"));
             PlayerPrefs.SetFloat("thirdplaceU", PlayerPrefs.GetFloat("secondplaceU"));
@@ -25,14 +21,14 @@ public class ScoreScript : MonoBehaviour
             // New first place
             PlayerPrefs.SetFloat("firstplace", totalScore);
             PlayerPrefs.SetString("firstplaceU", username);
-        } else if (totalScore > PlayerPrefs.GetFloat("secondplace")) {
+        } else if (totalScore >= PlayerPrefs.GetFloat("secondplace")) {
             // Move second to third
             PlayerPrefs.SetFloat("thirdplace", PlayerPrefs.GetFloat("secondplace"));
             PlayerPrefs.SetFloat("thirdplaceU", PlayerPrefs.GetFloat("secondplaceU"));
             // New second place
             PlayerPrefs.SetFloat("secondplace", totalScore);
             PlayerPrefs.SetString("secondplaceU", username);
-        } else if (totalScore > PlayerPrefs.GetFloat("thirdplace")) {
+        } else if (totalScore >= PlayerPrefs.GetFloat("thirdplace")) {
             PlayerPrefs.SetFloat("thirdplace", totalScore);
             PlayerPrefs.SetString("thirdplaceU", username);
         } 
