@@ -14,6 +14,7 @@ public class GUIManager : MonoBehaviour
 
     // Timer Var
     public TMP_Text timer;
+    private float startingTime;
     private float timeRemaining;
     private float timeRemainingOutput;
     private bool isTimerOn = false;
@@ -27,6 +28,7 @@ public class GUIManager : MonoBehaviour
 
     void Start() {
         timeRemaining = InitializeTime();
+        startingTime = timeRemaining;
     }
 
     void Update() {
@@ -92,6 +94,10 @@ public class GUIManager : MonoBehaviour
 
     public float GetRemainingTime() {
         return timeRemainingOutput;
+    }
+
+    public float GetStartingTime() {
+        return startingTime;
     }
 
     public void LevelCleared() {

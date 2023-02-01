@@ -162,7 +162,7 @@ public class GameLogicManager : MonoBehaviour
                 Invoke("EndOfStageManagement", 2f);
             }
             // To add score
-            float scoreToAdd = guiManager.GetRemainingTime() * 0.1f * selectedTilesList.Count;
+            float scoreToAdd = guiManager.GetRemainingTime() / guiManager.GetStartingTime() * 10f * selectedTilesList.Count;
             GenerateScorePopup(selectedTilesList[0].GetPosition(), (int)scoreToAdd);
             scoreManager.AddScore(scoreToAdd);
             foreach(Tile tile in selectedTilesList) {
@@ -175,7 +175,6 @@ public class GameLogicManager : MonoBehaviour
 
     void EndOfStageManagement() {
         if (imageloader.GetNumberOfImage() > 1 && stageIndex < imageloader.GetNumberOfImage()) {
-            Debug.Log("hohhohoti's herer");
             gridManager.HideAll();
             imageloader.NextImage();
             gridManager.LoadCurrentImage();
@@ -188,7 +187,6 @@ public class GameLogicManager : MonoBehaviour
     }
 
     void GenerateScorePopup(Vector3 position, int scoreAmount) {
-        Debug.Log("Hello");
         var spawnedScore = Instantiate(scorePopupPrefab, position, Quaternion.identity);
         spawnedScore.Generate(scoreAmount);
     }

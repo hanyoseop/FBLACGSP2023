@@ -969,10 +969,8 @@ birth
 birthday
 bishop
 bit
-bitch
 bite
 bits
-biz
 bizarre
 bizrate
 bk
@@ -1719,8 +1717,6 @@ coastal
 coat
 coated
 coating
-cock
-cocks
 cod
 code
 codes
@@ -2228,11 +2224,7 @@ cult
 cultural
 culture
 cultures
-cum
-cumshot
-cumshots
 cumulative
-cunt
 cup
 cups
 cure
@@ -2284,7 +2276,6 @@ damage
 damaged
 damages
 dame
-damn
 dan
 dana
 dance
@@ -2543,9 +2534,6 @@ diana
 diane
 diary
 dice
-dick
-dicke
-dicks
 dictionaries
 dictionary
 did
@@ -3688,9 +3676,6 @@ fs
 ft
 ftp
 fu
-fuck
-fucked
-fucking
 fuel
 fuji
 fujitsu
@@ -6518,7 +6503,6 @@ pending
 penetration
 penguin
 peninsula
-penis
 penn
 pennsylvania
 penny
@@ -6664,8 +6648,6 @@ pipe
 pipeline
 pipes
 pirates
-piss
-pissing
 pit
 pitch
 pittsburgh
@@ -6784,8 +6766,6 @@ populations
 por
 porcelain
 pork
-porn
-porno
 porsche
 port
 portable
@@ -8035,13 +8015,7 @@ seventh
 several
 severe
 sewing
-sex
-sexcam
-sexo
-sexual
 sexuality
-sexually
-sexy
 sf
 sg
 sh
@@ -8097,7 +8071,6 @@ shipping
 ships
 shirt
 shirts
-shit
 shock
 shoe
 shoes
@@ -8237,9 +8210,6 @@ slovakia
 slovenia
 slow
 slowly
-slut
-sluts
-sm
 small
 smaller
 smart
@@ -8992,7 +8962,6 @@ threatened
 threatening
 threats
 three
-threesome
 threshold
 thriller
 throat
@@ -9451,8 +9420,6 @@ vacation
 vacations
 vaccine
 vacuum
-vagina
-val
 valentine
 valid
 validation
