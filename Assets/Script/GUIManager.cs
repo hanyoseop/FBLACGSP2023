@@ -39,7 +39,7 @@ public class GUIManager : MonoBehaviour
                 Invoke("ShowRetryTab", 2f);
             }
         }  
-        ScoreText.text = scoreManager.totalScore.ToString("0");
+        ScoreText.text = scoreManager.GetTotalScore().ToString("0");
     }
 
     public void SetUpWordBank(List<string> wordBankContent) {
@@ -103,12 +103,12 @@ public class GUIManager : MonoBehaviour
     void ShowContinueTab() {
         continueTab.SetActive(true);
         TMP_Text finalScore = continueTab.transform.GetChild(3).GetComponent<TMP_Text>();
-        finalScore.text = "Score:" + scoreManager.totalScore.ToString("0");
+        finalScore.text = "Score:" + scoreManager.GetTotalScore().ToString("0");
     }
 
     void ShowRetryTab() {
         retryTab.SetActive(true);
         TMP_Text finalScore = retryTab.transform.GetChild(3).GetComponent<TMP_Text>();
-        finalScore.text = "Score:" + scoreManager.totalScore.ToString("0");
+        finalScore.text = "Score:" + scoreManager.GetTotalScore().ToString("0");
     }
 }

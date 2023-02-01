@@ -10,6 +10,8 @@ public class GameLogicManager : MonoBehaviour
     public GUIManager guiManager;
     public GameManagerScript gameManager;
     public ScoreScript scoreManager;
+
+    public ScorePopup scorePopupPrefab;
     
     // (x-coord, y-coord, direction)
     // 1 - North, 2 - East, 3 - South, 4 - West
@@ -160,7 +162,9 @@ public class GameLogicManager : MonoBehaviour
                 Invoke("EndOfStageManagement", 2f);
             }
             // To add score
-            scoreManager.AddScore(guiManager.GetRemainingTime() * 0.1f * selectedTilesList.Count);
+            float scoreToAdd = guiManager.GetRemainingTime() * 0.1f * selectedTilesList.Count;
+            GenerateScorePopup(selectedTilesList[0].GetPosition(), (int)scoreToAdd);
+            scoreManager.AddScore(scoreToAdd);
             foreach(Tile tile in selectedTilesList) {
                 tile.Hide();
                 Tile pixelTile = gridManager.GetTileAtPosition(0, tile.GetCoordinate());
@@ -181,6 +185,12 @@ public class GameLogicManager : MonoBehaviour
             PlayerPrefs.SetInt(gameManager.GetCurrentLevel().ToString() + "cleared", 1);
             gameManager.EndGame();
         }
+    }
+
+    void GenerateScorePopup(Vector3 position, int scoreAmount) {
+        Debug.Log("Hello");
+        var spawnedScore = Instantiate(scorePopupPrefab, position, Quaternion.identity);
+        spawnedScore.Generate(scoreAmount);
     }
 
     public Dictionary<Vector3, int> GetWordMappingData() {

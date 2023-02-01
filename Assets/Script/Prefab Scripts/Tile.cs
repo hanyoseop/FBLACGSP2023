@@ -41,6 +41,10 @@ public class Tile : MonoBehaviour
         return new Vector2(int.Parse(nameSplited[1]), int.Parse(nameSplited[2]));
     }
 
+    public Vector3 GetPosition() {
+        return tileObject.transform.position;
+    }
+
 
     public void Expose() {
         tileObject.SetActive(true);

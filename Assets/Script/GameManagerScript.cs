@@ -45,7 +45,8 @@ public class GameManagerScript : MonoBehaviour
 
     public void ResetClearData() {
         for (int i = 0; i < 6; i++) {
-            PlayerPrefs.SetInt(i.ToString() + "cleared", 0);
+            int level = i + 1;
+            PlayerPrefs.SetInt(level.ToString() + "cleared", 0);
         }
     }
 

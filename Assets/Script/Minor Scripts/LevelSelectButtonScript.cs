@@ -22,6 +22,8 @@ public class LevelSelectButtonScript : MonoBehaviour
     }
 
     public void SetUpPlayTab(int level) {
+        // Start the score recording
+        PlayerPrefs.SetFloat("TotalScore", 0);
         playTab.SetActive(true);
         titleText.text = titles[level];
         descriptionText.text = descriptions[level];
