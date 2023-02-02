@@ -10,12 +10,17 @@ public class LevelSelectSetUpScript : MonoBehaviour
         for (int i = 0; i < levelMarkers.Length; i++) {
             if (CheckIfCleared(i + 1)) {
                 levelMarkers[i].SetActive(true);
+                if (!(i == 5)) {
+                    levelMarkers[i + 1].SetActive(true);
+                }
             } else {
                 if (i + 1 == 1) {
                     // Tokyo always active
                     levelMarkers[i].SetActive(true);
                 } else {
-                    levelMarkers[i].SetActive(false);
+                    if (!levelMarkers[i].activeSelf) {
+                        levelMarkers[i].SetActive(false);
+                    }
                 }
             }
         }

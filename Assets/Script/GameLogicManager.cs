@@ -154,10 +154,13 @@ public class GameLogicManager : MonoBehaviour
             // To update wordbank
             wordBank.Remove(selectedLetters);
             guiManager.SetUpWordBank(wordBank);
+            // Audio
+            FindObjectOfType<AudioManager>().Play("Success");
 
             // When all words are found
             if (wordBank.Count == 0) {
                 // Check if more stages are there
+                FindObjectOfType<AudioManager>().Play("Clear");
                 gridManager.Reveal();
                 Invoke("EndOfStageManagement", 2f);
             }
@@ -182,7 +185,7 @@ public class GameLogicManager : MonoBehaviour
             stageIndex += 1;
         } else {
             PlayerPrefs.SetInt(gameManager.GetCurrentLevel().ToString() + "cleared", 1);
-            gameManager.EndGame();
+            gameManager.EndGame(imageloader.GetNumberOfImage());
         }
     }
 

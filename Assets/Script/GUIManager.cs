@@ -9,6 +9,9 @@ public class GUIManager : MonoBehaviour
     [SerializeField] private GameManagerScript gameManager;
     [SerializeField] private ScoreScript scoreManager;
 
+    [SerializeField] private Sprite[] finalResultImages;
+    [SerializeField] private GameObject finalResultDisplay;
+
     // Wordbank Var
     public TMP_Text wordBank;
 
@@ -67,17 +70,17 @@ public class GUIManager : MonoBehaviour
     // To control time based on level
     int InitializeTime() {
         if (gameManager.GetCurrentLevel() == 1) {
-            return 300;
+            return 150;
         } else if(gameManager.GetCurrentLevel() == 2) {
-            return 150;
+            return 300;
         } else if(gameManager.GetCurrentLevel() == 3) {
-            return 120;
+            return 300;
         } else if(gameManager.GetCurrentLevel() == 4) {
-            return 150;
+            return 300;
         } else if(gameManager.GetCurrentLevel() == 5) {
-            return 120;
+            return 480;
         } else if(gameManager.GetCurrentLevel() == 6) {
-            return 120;
+            return 480;
         } else {
             return 0;
         }
@@ -100,19 +103,31 @@ public class GUIManager : MonoBehaviour
         return startingTime;
     }
 
-    public void LevelCleared() {
+    public void LevelCleared(int numberOfStages) {
         isTimerOn = false;
-        ShowContinueTab();
-        // Invoke("ShowContinueTab", 2f);
+        // if the level only has one stage
+        if (numberOfStages == 1) {
+            ShowContinueTab();
+        } else {
+            ShowFinalResult();
+            Invoke("ShowContinueTab", 2f);
+        }
+    }
+
+    void ShowFinalResult() {
+        finalResultDisplay.SetActive(true);
+        finalResultDisplay.GetComponent<Image>().sprite = finalResultImages[gameManager.GetCurrentLevel() - 2];
     }
 
     void ShowContinueTab() {
+        FindObjectOfType<AudioManager>().Play("Page Flip");
         continueTab.SetActive(true);
         TMP_Text finalScore = continueTab.transform.GetChild(3).GetComponent<TMP_Text>();
         finalScore.text = "Score:" + scoreManager.GetTotalScore().ToString("0");
     }
 
     void ShowRetryTab() {
+        FindObjectOfType<AudioManager>().Play("Timeover");
         retryTab.SetActive(true);
         TMP_Text finalScore = retryTab.transform.GetChild(3).GetComponent<TMP_Text>();
         finalScore.text = "Score:" + scoreManager.GetTotalScore().ToString("0");

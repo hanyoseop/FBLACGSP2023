@@ -21,7 +21,6 @@ public class ScorePopup : MonoBehaviour
     }
 
     private void Update() {
-        Debug.Log("Im here");
         float moveYSpeed = 1f;
         scorePopupTransform.position += new Vector3(0, moveYSpeed) * Time.deltaTime;
         disappearTimer -= Time.deltaTime;

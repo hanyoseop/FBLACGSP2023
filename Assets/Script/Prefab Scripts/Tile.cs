@@ -62,10 +62,12 @@ public class Tile : MonoBehaviour
     void OnMouseDown() {
         selected = true;
         selectionManager.AddToSelected(tile);
+        FindObjectOfType<AudioManager>().Play("Pop");
     }
 
     void OnMouseEnter() {
         if (Input.GetMouseButton(0)) {
+            FindObjectOfType<AudioManager>().Play("Pop");
             selected = true;
             selectionManager.AddToSelected(tile);
         }

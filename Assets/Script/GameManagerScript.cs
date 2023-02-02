@@ -17,6 +17,7 @@ public class GameManagerScript : MonoBehaviour
         }
         if(Input.GetKey(KeyCode.KeypadMinus)) {
             adminSetting.SetActive(true);
+            FindObjectOfType<AudioManager>().Play("Page Flip");
         }
         if(Input.GetKey(KeyCode.Escape)) {
             Quit();
@@ -57,8 +58,8 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
-    public void EndGame() {
-        guiManager.LevelCleared();
+    public void EndGame(int numberOfStages) {
+        guiManager.LevelCleared(numberOfStages);
     }
 
     public void Quit() {

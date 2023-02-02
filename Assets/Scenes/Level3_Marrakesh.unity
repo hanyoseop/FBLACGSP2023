@@ -2584,9 +2584,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sourceImages:
-  - {fileID: 2800000, guid: 9844f78d352de7840a0631e46f9e951b, type: 3}
+  - {fileID: 2800000, guid: d41d423fc8f7e4140a662807f8e0fc4f, type: 3}
+  - {fileID: 2800000, guid: 117b8845e7ec31741ae6575ae8e69a20, type: 3}
   mappingImages:
-  - {fileID: 2800000, guid: 1edc34c5c7788af42998fbdbddfbc528, type: 3}
+  - {fileID: 2800000, guid: c5ee90fa1c9a830438c8f6698f44b532, type: 3}
+  - {fileID: 2800000, guid: d33b31b2f434abe45a5187af4e0151a0, type: 3}
 --- !u!4 &1203321307
 Transform:
   m_ObjectHideFlags: 0
