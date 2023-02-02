@@ -47,6 +47,7 @@ public class GUIManager : MonoBehaviour
         ScoreText.text = scoreManager.GetTotalScore().ToString("0");
     }
 
+    // Set up wordbank using the data from GameLogicManager
     public void SetUpWordBank(List<string> wordBankContent) {
         string wordBankText = "";
         for (int i = 0; i < wordBankContent.Count; i++) {
@@ -127,6 +128,7 @@ public class GUIManager : MonoBehaviour
     }
 
     void ShowRetryTab() {
+        PlayerPrefs.SetInt("TotalScore", 0);
         FindObjectOfType<AudioManager>().Play("Timeover");
         retryTab.SetActive(true);
         TMP_Text finalScore = retryTab.transform.GetChild(3).GetComponent<TMP_Text>();

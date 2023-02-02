@@ -66,6 +66,47 @@ public class GameLogicManager : MonoBehaviour
                 if (imageloader.GetMappingData(new Vector2(x, y))) {
                     // Variable to check if something was there
                     bool hasSomethingAround = false;
+                    if(imageloader.GetMappingData(new Vector2(x + 1, y))) {
+                        // Check East
+                        hasSomethingAround = true;
+                        int counter = 0;
+                        Vector2[] backup = new Vector2[15]; 
+                        while (imageloader.GetMappingData(new Vector2(x + counter, y))) {
+                            backup[counter] = new Vector2(x, y + counter);
+                            imageloader.RemoveMappingData(new Vector2(x + counter, y));
+                            counter++;
+                        }
+                        // If it's too short restore backup
+                        if (counter < 3) {
+                            foreach (Vector2 restore in backup) {
+                                imageloader.RestoreMappingData(restore);
+                            }
+                        } else {
+                            int currentLevel = gameManager.GetCurrentLevel();
+                            if (currentLevel == 1 || currentLevel == 2) {
+                                // Level 1 and 2 have no flip
+                                wordMappingData[new Vector3(x, y, 2)] = counter;
+                            } else if (currentLevel == 3 || currentLevel == 4) {
+                                // Level 3 and 4 have horizontal flip
+                                int flipRandom = Random.Range(0, 2);
+                                // Horizontal
+                                if (flipRandom == 0) {
+                                    wordMappingData[new Vector3(x + counter - 1, y, 4)] = counter;
+                                } else {
+                                    wordMappingData[new Vector3(x, y, 2)] = counter; 
+                                }
+                            } else if (currentLevel == 5 || currentLevel == 6) {
+                                // Level 5 and 6 have both flips
+                                int flipRandom = Random.Range(0, 2);
+                                // Horizontal
+                                if (flipRandom == 0) {
+                                    wordMappingData[new Vector3(x + counter - 1, y, 4)] = counter;
+                                } else {
+                                    wordMappingData[new Vector3(x, y, 2)] = counter; 
+                                }
+                            }
+                        }
+                    } 
                     if(imageloader.GetMappingData(new Vector2(x, y + 1))) {
                         // Check North
                         hasSomethingAround = true;
@@ -101,46 +142,6 @@ public class GameLogicManager : MonoBehaviour
                             }
                         }
                     }
-                    if(imageloader.GetMappingData(new Vector2(x + 1, y))) {
-                        // Check East
-                        hasSomethingAround = true;
-                        int counter = 0;
-                        Vector2[] backup = new Vector2[15]; 
-                        while (imageloader.GetMappingData(new Vector2(x + counter, y))) {
-                            imageloader.RemoveMappingData(new Vector2(x + counter, y));
-                            counter++;
-                        }
-                        // If it's too short restore backup
-                        if (counter < 3) {
-                            foreach (Vector2 restore in backup) {
-                                imageloader.RestoreMappingData(restore);
-                            }
-                        } else {
-                            int currentLevel = gameManager.GetCurrentLevel();
-                            if (currentLevel == 1 || currentLevel == 2) {
-                                // Level 1 and 2 have no flip
-                                wordMappingData[new Vector3(x, y, 2)] = counter;
-                            } else if (currentLevel == 3 || currentLevel == 4) {
-                                // Level 3 and 4 have horizontal flip
-                                int flipRandom = Random.Range(0, 2);
-                                // Horizontal
-                                if (flipRandom == 0) {
-                                    wordMappingData[new Vector3(x + counter - 1, y, 4)] = counter;
-                                } else {
-                                    wordMappingData[new Vector3(x, y, 2)] = counter; 
-                                }
-                            } else if (currentLevel == 5 || currentLevel == 6) {
-                                // Level 5 and 6 have both flips
-                                int flipRandom = Random.Range(0, 2);
-                                // Horizontal
-                                if (flipRandom == 0) {
-                                    wordMappingData[new Vector3(x + counter - 1, y, 4)] = counter;
-                                } else {
-                                    wordMappingData[new Vector3(x, y, 2)] = counter; 
-                                }
-                            }
-                        }
-                    } 
                     if (!hasSomethingAround) {
                         imageloader.RemoveMappingData(new Vector2(x, y));
                     } 

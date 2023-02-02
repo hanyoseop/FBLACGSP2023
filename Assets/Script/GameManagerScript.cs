@@ -7,7 +7,15 @@ public class GameManagerScript : MonoBehaviour
 {
     public GUIManager guiManager;
 
+    [SerializeField] private GameObject instructionBoard;
+
     [SerializeField] GameObject adminSetting;
+
+    void Awake() {
+        if (GetCurrentLevel() == 0) {
+            ManageInstruction();
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -58,11 +66,21 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
+    public void ManageInstruction() {
+        if (PlayerPrefs.GetInt("firstime", 1) == 1) {
+            instructionBoard.SetActive(true);
+            PlayerPrefs.SetInt("firstime", 0);
+        } else {
+            instructionBoard.SetActive(false);
+        }
+    }
+
     public void EndGame(int numberOfStages) {
         guiManager.LevelCleared(numberOfStages);
     }
 
     public void Quit() {
+        PlayerPrefs.SetInt("firstime", 1);
         Debug.Log("Qutting...");
         Application.Quit();
     }
