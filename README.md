@@ -9,13 +9,18 @@
 You can play the game online simply using the first link above.
 
 You can download the executable using the second link above.
-  - Unzip the downloaded file and execute "Around The World In World Search.exe"
+  - Unzip the downloaded file and execute "Around The World In word Search.exe"
 
- 
+
+**-- For Judges**
 
 This repository contains codes and resources for FBLA Computer Game & Simulation Programming 2023.
 
 Scripts and codes for the project can be found under "Assets/Scripts"
+
+The three code samples above in the directory are the vital codes for the game.
+
+They contain the most important functions of the game, but other codes are also available in "Assets/Scripts"
 
 
 
