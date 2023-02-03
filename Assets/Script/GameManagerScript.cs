@@ -15,6 +15,10 @@ public class GameManagerScript : MonoBehaviour
         if (GetCurrentLevel() == 0) {
             ManageInstruction();
         }
+
+        if (GetCurrentLevel() == 7) {
+            FindObjectOfType<AudioManager>().Play("Game Clear");
+        }
     }
 
     // Update is called once per frame

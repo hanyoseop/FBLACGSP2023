@@ -22,6 +22,7 @@ public class GridManager : MonoBehaviour
         GenerateGridWithLetter();
     }
 
+    // Generate random letter tiles and save them into a dictionary for later use. 
     void GenerateGridWithLetter() {
         letterTiles = new Dictionary<Vector2, Tile>();
         for (int x = 0; x < width; x++) {
@@ -36,7 +37,8 @@ public class GridManager : MonoBehaviour
             }
         }
     }
-    
+
+    // Spawn picture in form of tiles and save reference data in a dictionary for later use.
     void LoadPictureInGrid() {
         pixelTiles = new Dictionary<Vector2, Tile>();
         for (int x = 0; x < width; x++) {
@@ -53,6 +55,7 @@ public class GridManager : MonoBehaviour
         }
     }
     
+    // Reveal when game is cleared
     public void Reveal() {
         for (int y = 0; y < 15; y++) {
             for (int x = 0; x < 15; x++) {
@@ -62,6 +65,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    // Hide all picture tiles
     public void HideAll() {
         for (int y = 0; y < 15; y++) {
             for (int x = 0; x < 15; x++) {
@@ -70,12 +74,13 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    // I don't know if this is a right way to do this but for now I do this. 
+    // Set letter to a tile decided in Game Logic Manager
     public void SetLetterToTile(Tile tile, char letter) {
         tile.Expose();
         tile.ChangeLetter(letterSpriteArray[(int)letter - 97]);
     }
 
+    // return tile reference based on type and position
     public Tile GetTileAtPosition(int type, Vector2 position) {
         if (type == 0) {
             if (pixelTiles.TryGetValue(position, out var tile)) {

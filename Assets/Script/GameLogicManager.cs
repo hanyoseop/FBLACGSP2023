@@ -58,6 +58,7 @@ public class GameLogicManager : MonoBehaviour
         }
     }
 
+    // Set up words on to the letter grid based on the following algorithm
     void ArrangeWordSetup() {
         wordMappingData = new Dictionary<Vector3, int>();
         for (int y = 0; y < 15; y++) {
@@ -177,6 +178,7 @@ public class GameLogicManager : MonoBehaviour
         }
     }
 
+    // Check wether the level has more than one stages. If it does, load next stage.
     void EndOfStageManagement() {
         if (imageloader.GetNumberOfImage() > 1 && stageIndex < imageloader.GetNumberOfImage()) {
             gridManager.HideAll();

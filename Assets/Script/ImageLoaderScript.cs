@@ -22,6 +22,7 @@ public class ImageLoaderScript : MonoBehaviour
         LoadMappingData(currentIndex);
     }
 
+    // Load image to get each pixel's color and save it in a dictionary
     void LoadImageData(int imageIndex) {
         pixelData = new Dictionary<Vector2, Color>();
         Color[] pixels = sourceImages[imageIndex].GetPixels(0, 0, 1500, 1500);
@@ -38,6 +39,7 @@ public class ImageLoaderScript : MonoBehaviour
         }
     }
 
+    // Load word mapping data to use for placing words
     void LoadMappingData(int imageIndex) {
         mappingData = new Dictionary<Vector2, bool>();
         Color[] rawMappingData = mappingImages[imageIndex].GetPixels(0, 0, 15, 15);
@@ -83,6 +85,7 @@ public class ImageLoaderScript : MonoBehaviour
         return numberOfImages;
     }
 
+    // Used when next stage is called
     public void NextImage() {
         currentIndex += 1;
         LoadImageData(currentIndex);
