@@ -17,21 +17,21 @@ This repository contains codes and resources for FBLA Computer Game & Simulation
 
 Scripts and codes for the project can be found under "Assets/Scripts"
 
- 
 
--- Controls:
+
+**-- Controls**:
 
 Only a mouse is needed to select and find words!
 
-ESC: immediatly quits the executable.
+**ESC**: immediatly quits the executable.
 
-TAB: exits out to the main menu. 
+**TAB**: exits out to the main menu. 
 
-Enjoy!
+*Enjoy!*
 
  
 
--- Advanced functionality (for the full insight of the game):
+**-- Advanced functionality (for the full insight of the game)**:
 
 Numpad - (Minus sign): Opens up the admin setting where you can reset leaderboard data, game clear data, or unlock all 6 levels immedietly. 
 
